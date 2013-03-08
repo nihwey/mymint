@@ -3,6 +3,7 @@ var handlers = require('./handlers');
 
 var handles = {
   '/': handlers.main,
+  '/getSpendingCategories': handlers.getSpendingCategories,
   '/getStatementList': handlers.getStatementList
 };
 

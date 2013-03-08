@@ -59,6 +59,20 @@ function main(response) {
 }
 
 /**
+ * Return the list of spending categories.
+ */
+function getSpendingCategories(response) {
+  var categories = [
+    'Food',
+    'Shopping',
+    'Travel',
+    'Groceries',
+    'Misc.'
+  ];
+  write(response, MIMETYPE['.json'], JSON.stringify(categories));
+}
+
+/**
  * Return a statement object containing information about a single bank
  * statement.
  */
@@ -205,6 +219,7 @@ function getStatementList(response, request) {
   });
 }
 
+exports.getSpendingCategories = getSpendingCategories;
 exports.getStatementList = getStatementList;
 exports.main = main;
 exports.render = render;

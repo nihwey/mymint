@@ -4,15 +4,23 @@
   <title>MyMint</title>
   <link type="text/css" rel="stylesheet" href="static/css/mymint.css"/>
   <script type="text/javascript" src="lib/angular-1.0.3/angular.js"></script>
+  <script type="text/javascript" src="lib/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript"
+          src="lib/jquery-ui-1.10.1.custom/js/jquery-ui-1.10.1.custom.min.js">
+  </script>
   <script type="text/javascript" src="controllers.js"></script>
 </head>
 <body>
-  <div>
-    <label>Name:</label>
-    <input type="text" ng-model="yourName" placeholder="Enter a name here">
-    <hr>
-    <h1>Hello {{yourName}}!!</h1>
+  <!-- A cool widget that follows you around and lets you sort unsorted items
+   into buckets, or define new buckets on the fly. -->
+  <div id="sorter-outer" ng-controller="SpendingCategoriesListCtrl">
+    <div class="sort-category" ng-repeat="category in categories">
+      {{category}}</div>
+    <input id="sorter-new" placeholder="Add a new category"/>
   </div>
+  <h1>
+    MyMint
+  </h1>
   <div ng-controller="StatementListCtrl">
     <label for="stmts">Showing month: </label>
     <select id="stmts">
@@ -21,7 +29,12 @@
     </select>
     <div class="stmt-group" ng-repeat="statementList in statements">
       <div class="stmt" ng-repeat="statement in statementList">
-        {{statement.data}}
+        <div class="stmt-bank">{{statement.bank}}</div>
+        <div class="entry" ng-repeat="entry in statement.data.entries">
+          <span class="entry-item">{{entry.date}}</span>
+          <span class="entry-item">{{entry.description}}</span>
+          <span class="entry-item">{{entry.amount}}</span>
+        </div>
       </div>
     </div>
   </div>
