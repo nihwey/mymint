@@ -1,0 +1,10 @@
+body {
+  font-family: sans-serif;
+}
+
+.stmt {
+  border: 1px solid #ddd;
+  background: #eee;
+  padding: 20px;
+  margin: 10px;
+}

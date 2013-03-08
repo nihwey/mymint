@@ -1,0 +1,29 @@
+<!doctype html>
+<html ng-app>
+<head>
+  <title>MyMint</title>
+  <link type="text/css" rel="stylesheet" href="static/css/mymint.css"/>
+  <script type="text/javascript" src="lib/angular-1.0.3/angular.js"></script>
+  <script type="text/javascript" src="controllers.js"></script>
+</head>
+<body>
+  <div>
+    <label>Name:</label>
+    <input type="text" ng-model="yourName" placeholder="Enter a name here">
+    <hr>
+    <h1>Hello {{yourName}}!!</h1>
+  </div>
+  <div ng-controller="StatementListCtrl">
+    <label for="stmts">Showing month: </label>
+    <select id="stmts">
+      <option ng-repeat="(displayDate, statementList) in statements">
+        {{displayDate}}</option>
+    </select>
+    <div class="stmt-group" ng-repeat="statementList in statements">
+      <div class="stmt" ng-repeat="statement in statementList">
+        {{statement.data}}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
