@@ -112,7 +112,7 @@ function parseStatement(statement) {
       data = parseBoaStatement(contents);
       break;
     case 'chase':
-      data = parseChaseStatement(contents);
+      data = parseChaseStatement(contents, statement.month, statement.year);
       break;
     default:
       data = {};
@@ -121,8 +121,22 @@ function parseStatement(statement) {
   return statement;
 }
 
+/**
+ * Return true if word starts with phrase and false otherwise.
+ */
 function startsWith(word, phrase) {
   return word.indexOf(phrase) == 0;
+}
+
+/**
+ * Get the string representation of a numerical amount with dollar sign ($).
+ */
+function getDisplayAmount(amount) {
+  if (amount < 0) {
+    return '-$' + Math.abs(amount).toFixed(2);
+  } else {
+    return '$' + amount.toFixed(2);
+  }
 }
 
 /**
@@ -140,10 +154,12 @@ function parseBoaStatement(contents) {
     if (isEntry) {
       line = line.split('"');
       if (line[0] != '') {
+        var amount = Number(line[3].replace(',', ''));
         data.entries.push({
           date: line[0].substring(0, line[0].length-1),  // strip out the ','
           description: line[1],
-          amount: line[3],
+          amount: amount,
+          displayAmount: getDisplayAmount(amount),
           balance: line[5]
         });
       }
@@ -175,19 +191,39 @@ function parseBoaStatement(contents) {
 }
 
 /**
+ * Chase dates come without a year. Add the year to them.
+ */
+function formatChaseDate(date, statementMonth, statementYear) {
+  var segments = date.split('/');
+  var year;
+  year = (segments[0] > statementMonth)
+    ? statementYear - 1
+    : statementYear;
+  return date + '/' + year;
+}
+
+/**
  * Parse a Chase statement.
  */
-function parseChaseStatement(contents) {
+function parseChaseStatement(contents, month, year) {
   var data = { entries: [] };
   var lines = contents.split('\n');
   for (var i = 0; i < lines.length; i++) {
     var line = lines[i];
     var break1 = line.indexOf(' ');
     var break2 = line.lastIndexOf(' ');
+    var displayDate = formatChaseDate(line.substring(0, break1), month, year);
+    var date = displayDate.split('/');
+    var amount = Number(line.replace(',', '')
+                            .substring(break2 + 1, line.length));
     data.entries.push({
-      date: line.substring(0, break1),
+      date: displayDate,
+      month: date[0],
+      day: date[1],
+      year: date[2],
       description: line.substring(break1 + 1, break2),
-      amount: line.substring(break2 + 1, line.length)
+      amount: amount,
+      displayAmount: getDisplayAmount(amount)
     });
   }
   return data;

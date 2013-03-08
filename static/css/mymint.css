@@ -2,6 +2,9 @@ body {
   font-family: sans-serif;
   font-size: 12px;
 }
+.stmt-group {
+  margin-right: 100px;
+}
 .stmt {
   background: #eee;
   border: 1px solid #ddd;
@@ -11,18 +14,29 @@ body {
 .stmt-bank {
   font-weight: bold;
 }
-.stmt .entry {
+.entry {
   background: #efefef;
   border: 1px solid #ccc;
   cursor: pointer;
   margin: 1px;
   padding: 2px;
 }
-.stmt .entry:hover {
+.entry:hover {
   background: #fff;
 }
-.stmt .entry .entry-item {
+.entry-item {
   margin-right: 5px;
+}
+.entry-item.date {
+  float: left;
+  margin-right: 10px;
+}
+.entry-item.description {
+  overflow: hidden;
+}
+.entry-item.amount {
+  float: right;
+  margin-left: 10px;
 }
 #sorter-outer {
   background: #ddd;

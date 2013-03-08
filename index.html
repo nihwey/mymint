@@ -31,9 +31,9 @@
       <div class="stmt" ng-repeat="statement in statementList">
         <div class="stmt-bank">{{statement.bank}}</div>
         <div class="entry" ng-repeat="entry in statement.data.entries">
-          <span class="entry-item">{{entry.date}}</span>
-          <span class="entry-item">{{entry.description}}</span>
-          <span class="entry-item">{{entry.amount}}</span>
+          <span class="entry-item amount">{{entry.displayAmount}}</span>
+          <span class="entry-item date">{{entry.date}}</span>
+          <div class="entry-item description">{{entry.description}}</div>
         </div>
       </div>
     </div>
