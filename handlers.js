@@ -154,9 +154,14 @@ function parseBoaStatement(contents) {
     if (isEntry) {
       line = line.split('"');
       if (line[0] != '') {
+        var displayDate = line[0].replace(',', '');
+        var date = displayDate.split('/');
         var amount = Number(line[3].replace(',', ''));
         data.entries.push({
-          date: line[0].substring(0, line[0].length-1),  // strip out the ','
+          date: displayDate,
+          month: date[0],
+          day: date[1],
+          year: date[2],
           description: line[1],
           amount: amount,
           displayAmount: getDisplayAmount(amount),

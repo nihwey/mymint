@@ -1,15 +1,15 @@
 function SpendingCategoriesListCtrl($scope, $http) {
   $http.post('/getSpendingCategories')
-  .success(function(data, status) {
-      $scope.categories = data;
-  });
+    .success(function(data, status) {
+        $scope.categories = data;
+    });
 }
 
 function StatementListCtrl($scope, $http) {
   $http.post('/getStatementList')
-      .success(function(data, status) {
-          $scope.statements = data;
-      });
+    .success(function(data, status) {
+        $scope.statements = data;
+    });
 }
 
 $(document).ready(function() {
