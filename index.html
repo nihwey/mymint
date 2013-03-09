@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app>
+<html ng-app="mymint">
 <head>
   <title>MyMint</title>
   <link type="text/css" rel="stylesheet" href="static/css/mymint.css"/>
@@ -13,10 +13,11 @@
 <body>
   <!-- A cool widget that follows you around and lets you sort unsorted items
    into buckets, or define new buckets on the fly. -->
-  <div id="sorter-outer" ng-controller="SpendingCategoriesListCtrl">
-    <div class="sort-category" ng-repeat="category in categories">
+  <div sorter id="sorter-outer" ng-controller="SorterListCtrl">
+    <div category class="sort-category" ng-repeat="category in categories">
       {{category}}</div>
-    <input id="sorter-new" placeholder="Add a new category"/>
+    <input id="sorter-new" ng-model="newCategory"
+           placeholder="Add category"/>
   </div>
   <h1>
     MyMint
@@ -30,7 +31,8 @@
     <div class="stmt-group" ng-repeat="statementList in statements">
       <div class="stmt" ng-repeat="statement in statementList">
         <div class="stmt-bank">{{statement.bank}}</div>
-        <div class="entry" ng-repeat="entry in statement.data.entries">
+        <div entry class="entry"
+             ng-repeat="entry in statement.data.entries">
           <span class="entry-item amount">{{entry.displayAmount}}</span>
           <span class="entry-item date">{{entry.date}}</span>
           <div class="entry-item description">{{entry.description}}</div>
